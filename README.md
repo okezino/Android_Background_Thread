@@ -61,7 +61,13 @@ all the executable code are place in the run function.
   
   @looper :: the looper is like a loop, that runs through the MessageQueue, Picks up Task(Runnable) and send to the handler to execute
      
+ 
+ ### Mechanism of the Main Thread
+   <img width="537" alt="Screenshot 2021-12-12 at 00 00 06" src="https://user-images.githubusercontent.com/46386915/145721335-b25667a3-19aa-421e-969c-651cfd62da2f.png">   
    
-    
+### Mechanism of a Background Thread without a Looper and Handler   
+
+<img width="404" alt="Screenshot 2021-12-12 at 18 03 43" src="https://user-images.githubusercontent.com/46386915/145721948-497ce4b4-48be-448d-82a9-4dcdf3632117.png">
+
     
 
