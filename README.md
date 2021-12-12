@@ -6,23 +6,24 @@ Handlers, looper and messagequeue, we will shallowly talk about this concepts an
 ## There are 2 Java Component we need to learn
 ### 1. Thread class
      In other to create a background thread, we need to call the Thread class and override the run function, once this class is called, we need to use the start function to
+     ```
      start running the thread.
      
-     ```
      //declare the background class
      class  BackgroundThread : Thread(){
     override fun run() {
         super.run()
         //work that is to be done by the thread
          TODO("Not yet implemented")
-    }   
-}
-//create an intsance of the background thread
+    }   }
+ ```
+create an intsance of the background thread
 var backgroundThread = BackgroundThread()
 
-//start the background thread
+start the background thread
 backgroundThread.start()
-
+```
+```
 
 //start an anonymous thread
 // this create a thread, takes a Runnable as paramter and starts the thread with the start function
