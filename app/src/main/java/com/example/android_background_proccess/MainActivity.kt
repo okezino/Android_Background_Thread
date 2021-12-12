@@ -3,6 +3,11 @@ package com.example.android_background_proccess
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
+import android.util.Log
+import android.view.View
 import com.example.android_background_proccess.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -13,10 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-
-        runCall()
-        binding?.button?.setOnClickListener {
-            runAction()
+        Log.d("MainActivity", "Start")
+        binding?.call?.setOnClickListener {
+            runCall()
         }
     }
 
@@ -56,38 +60,79 @@ class MainActivity : AppCompatActivity() {
      *
      */
 
+    /**
+     * With this implementation, we can only create one thread all through the application
+     */
+//    val runnableTask = object : Runnable {
+//        override fun run() {
+//            Thread.sleep(10000)
+//            /**
+//             *
+//             */
+//
+//            runOnUiThread {
+//                binding!!.textView.text = "Button Click"
+//            }
+//
+//        }
+//    }
+//    var a  =  Thread(runnableTask)
+//
+//
+//    @SuppressLint("SetTextI18n")
+//    fun runAction() {
+//        a.start()
+//    }
 
-    val runnableTask = object : Runnable {
-        override fun run() {
-            Thread.sleep(10000)
-            /**
-             *
-             */
+    /**
+     * with want to build a situation where we can call a thread continuously
+     */
 
-            runOnUiThread {
-                binding!!.textView.text = "Button Click"
+
+
+
+
+    fun runAction(view: View) {
+         var nextThread = BackgroundThread()
+          nextThread.start()
+
+        val runnable =  Runnable{
+            for(i in 0..10){
+                Log.d("SendMessage","$i")
+                SystemClock.sleep(1000)
             }
-
         }
+        nextThread.handler.post(runnable)
     }
-    var a  =  Thread(runnableTask)
 
 
-    @SuppressLint("SetTextI18n")
-    fun runAction() {
-        a.start()
-    }
 
     fun runCall() {
-        binding?.call?.setOnClickListener {
             count++
             binding!!.textView.text = "${count}"
 
         }
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         binding = null
     }
+}
+
+/**
+ * Create Instance of a Thread
+ * 1.for infinite loop....A background thread needs a looper and a messagequeue
+ * use looper.prepare()
+ */
+
+class BackgroundThread : Thread(){
+    var handler : Handler = Handler()
+
+
+    override fun run() {
+        Looper.prepare()
+        Looper.loop()
+    }
+
 }
