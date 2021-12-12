@@ -1,4 +1,4 @@
-  <img width="537" alt="Screenshot 2021-12-12 at 00 00 06" src="https://user-images.githubusercontent.com/46386915/145721335-b25667a3-19aa-421e-969c-651cfd62da2f.png">
+
 # Android_Background_Thread
 
 This is a very short project that demonstrate the Android Background Thread system, how the Java Thread can be manage using so Android component like 
