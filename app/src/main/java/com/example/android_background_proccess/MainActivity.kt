@@ -94,15 +94,16 @@ class MainActivity : AppCompatActivity() {
 
     fun runAction(view: View) {
          var nextThread = BackgroundThread()
-          nextThread.start()
-
-        val runnable =  Runnable{
-            for(i in 0..10){
-                Log.d("SendMessage","$i")
-                SystemClock.sleep(1000)
+              nextThread.start()
+        nextThread.handler.post(object : Runnable{
+            override fun run() {
+                for(i in 0..10){
+                    Log.d("SendMessage","$i")
+                    SystemClock.sleep(1000)
+                }
             }
-        }
-        nextThread.handler.post(runnable)
+
+        })
     }
 
 
