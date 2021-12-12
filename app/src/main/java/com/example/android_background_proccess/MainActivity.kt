@@ -63,47 +63,73 @@ class MainActivity : AppCompatActivity() {
     /**
      * With this implementation, we can only create one thread all through the application
      */
-//    val runnableTask = object : Runnable {
-//        override fun run() {
-//            Thread.sleep(10000)
-//            /**
-//             *
-//             */
-//
-//            runOnUiThread {
-//                binding!!.textView.text = "Button Click"
-//            }
-//
-//        }
-//    }
-//    var a  =  Thread(runnableTask)
-//
-//
-//    @SuppressLint("SetTextI18n")
-//    fun runAction() {
-//        a.start()
-//    }
 
-    /**
-     * with want to build a situation where we can call a thread continuously
-     */
+
+
 
 
 
 
 
     fun runAction(view: View) {
-         var nextThread = BackgroundThread()
-              nextThread.start()
-        nextThread.handler.post(object : Runnable{
-            override fun run() {
-                for(i in 0..10){
-                    Log.d("SendMessage","$i")
-                    SystemClock.sleep(1000)
+
+        /**
+         * Using RunOnUIThread
+         */
+//        Thread {
+//            for (i in 0..90) {
+//                Log.d("MainActivity", "$i")
+//                Thread.sleep(1000)
+//                if (i % 10 == 0) {
+//                    runOnUiThread { binding!!.textView.text = "$i %" }
+//                }
+//            }
+//        }.start()
+
+        /**
+         * Using the MainThread Handler to send a task(Runnable) using the post function call
+         */
+
+//        Thread {
+//            for (i in 0..90) {
+//                Log.d("MainActivity", "$i")
+//                Thread.sleep(1000)
+//                if (i % 10 == 0) {
+//
+//                    var handler =  Handler(mainLooper)
+//                    handler.post(object : Runnable{
+//                        override fun run() {
+//                            binding!!.textView.text = "$i %"
+//                        }
+//
+//                    })
+//
+//
+//                }
+//            }
+//        }.start()
+
+        /**
+         * Using the Post function on a view tied to the Main Thread to send
+         */
+
+        Thread {
+            for (i in 0..90) {
+                Log.d("MainActivity", "$i")
+                Thread.sleep(1000)
+                if (i % 10 == 0) {
+                   binding!!.textView.post(
+                       object : Runnable{
+                           override fun run() {
+                               binding!!.textView.text = "$i %"
+                           }
+
+                       }
+                   )
+
                 }
             }
-
-        })
+        }.start()
     }
 
 
@@ -121,19 +147,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-/**
- * Create Instance of a Thread
- * 1.for infinite loop....A background thread needs a looper and a messagequeue
- * use looper.prepare()
- */
 
-class BackgroundThread : Thread(){
-    var handler : Handler = Handler()
-
-
-    override fun run() {
-        Looper.prepare()
-        Looper.loop()
-    }
-
-}
