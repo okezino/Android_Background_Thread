@@ -1,3 +1,4 @@
+
 # Android_Background_Thread
 
 This is a very short project that demonstrate the Android Background Thread system, how the Java Thread can be manage using so Android component like 
@@ -50,6 +51,17 @@ all the executable code are place in the run function.
   ##Note : A Thread execute tasks in the form of Runnables, In Android the main thread Runs in by default on an infinite loop until the app is killed, it is done
      by the help of the looper, looper is an Android component, we will talk about it later however other background thread runs and terminate once the task 
      assign to it has be executed and cant be called again.
+     
+     
+  ## There a 3 Android components that helps to execute a thread and enable thread interaction [MessageQueue, Handler and looper]  
+  
+  ### @MessageQueue :: this is a stack of task(Runnable) that is been executed by the thread, all task  has an execution time stamp
+  
+  ### @Handler :: The handler add task(Runnable) to the MessageQueue and also collect task with stamp stamp now or past time from the looper to execute, The handler   can also Task a Message from another thread and add to the MessageQueue of that thread
+  
+  ### @looper :: the looper is like a loop, that runs through the MessageQueue, Picks up Task(Runnable) and send to the handler to execute
+     
+     <img width="537" alt="Screenshot 2021-12-12 at 00 00 06" src="https://user-images.githubusercontent.com/46386915/145721335-b25667a3-19aa-421e-969c-651cfd62da2f.png">
     
     
 
